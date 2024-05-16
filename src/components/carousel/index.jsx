@@ -4,11 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import "./index.scss";
 
 // import required modules
-import { Autoplay, Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -18,7 +19,12 @@ import { useEffect, useState } from "react";
 //Carousel => numberOfSlide =1 => hiển thị 1 thằng
 //Carousel => numberOfSlide =6 => hiển thị 6 thằng
 
-export default function Carousel({ numberOfSlide, category }) {
+export default function Carousel({
+  numberOfSlide,
+  category,
+  isUseNavigation = false,
+  title,
+}) {
   const [movies, setMovies] = useState([]);
   const fetchMovies = async () => {
     const response = await axios.get(
@@ -33,13 +39,15 @@ export default function Carousel({ numberOfSlide, category }) {
     fetchMovies();
   }, []);
   return (
-    <div>
+    <div className={`carousel ${numberOfSlide > 1 ? "multi-item" : ""}`}>
+      {/* chỉ show title khi và chỉ khi có title => nếu title===null => ko show title */}
+      {title && <h1>{title}</h1>}
       <Swiper
+        navigation={isUseNavigation}
         slidesPerView={numberOfSlide}
         spaceBetween={10}
         pagination={true}
-        modules={[Pagination, Autoplay]}
-        className="carousel"
+        modules={[Pagination, Autoplay, Navigation]}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,

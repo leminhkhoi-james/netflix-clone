@@ -6,8 +6,13 @@ function HomePage() {
     <div>
       <Header />
       <Carousel numberOfSlide={1} category={"Trending"} />
-      <Carousel numberOfSlide={6} category={"Horror"} />
-      <Carousel numberOfSlide={6} category={"Comedy"} />
+      <Carousel
+        numberOfSlide={6}
+        category={"Horror"}
+        isUseNavigation={true}
+        title="Horror movie"
+      />
+      <Carousel numberOfSlide={6} category={"Comedy"} isUseNavigation={true} />
     </div>
   );
 }
